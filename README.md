@@ -8,7 +8,7 @@
  - GCD
  - TabBarController, NavigationController
  - CollectionView, Custom cell
- - AlerController
+ - AlertController
  - CoreData
 
 ![](https://github.com/MagomedNagoev/media/blob/main/unsplash.jpg)
