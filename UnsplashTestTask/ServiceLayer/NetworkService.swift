@@ -16,12 +16,11 @@ class NetworkService: NetworkServiceProtocol {
     func getData(searchTerm: String, completion: @escaping (Result<[RandomResult]?, Error>) -> Void) {
         let parameters = self.prepareParaments(searchTerm: searchTerm)
         let url = self.url(parameters: parameters)
+        print(url)
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = prepareHeader()
         request.httpMethod = "get"
-//        if let cachedRates = getCachedData(from: request) {
-//            completion(.success(cachedRates))
-//        }
+
         URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data else {
                 return
@@ -29,7 +28,6 @@ class NetworkService: NetworkServiceProtocol {
 
             do {
                 let obj = try JSONDecoder().decode([RandomResult].self, from: data)
-//                self.saveDataToCache(with: data, and: response)
                 completion(.success(obj))
             } catch let error {
                 completion(.failure(error))
@@ -45,7 +43,9 @@ class NetworkService: NetworkServiceProtocol {
 
     private func prepareParaments(searchTerm: String?) -> [String: String] {
         var parameters = [String: String]()
-        parameters["query"] = searchTerm
+        if searchTerm != "" {
+            parameters["query"] = searchTerm
+        }
         parameters["count"] = String(30)
         return parameters
     }
@@ -58,25 +58,4 @@ class NetworkService: NetworkServiceProtocol {
         components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1)}
         return components.url!
     }
-
-//    private func getCachedData(from urlRequest: URLRequest) -> [RandomResult]? {
-//        if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest) {
-//            do {
-//                let obj = try JSONDecoder().decode([RandomResult].self, from: cachedResponse.data)
-//                print("загрузка кэша")
-//                return obj
-//            } catch let error {
-//                print(error)
-//            }
-//        }
-//        return nil
-//    }
-//
-//    private func saveDataToCache(with data: Data, and response: URLResponse) {
-//            guard let url = response.url else { return }
-//            let urlRequest = URLRequest(url: url)
-//            let cachedResponse = CachedURLResponse(response: response, data: data)
-//            URLCache.shared.storeCachedResponse(cachedResponse, for: urlRequest)
-//        print("закэшилось")
-//        }
 }
