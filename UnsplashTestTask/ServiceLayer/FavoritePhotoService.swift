@@ -20,8 +20,8 @@ protocol FavoritePhotoServiceProtocol {
 class FavoritePhotoService: FavoritePhotoServiceProtocol {
 
     // MARK: Properties
-    let managedObjectContext: NSManagedObjectContext
-    let dataStoreManager: DataStoreManager
+    private let managedObjectContext: NSManagedObjectContext
+    private let dataStoreManager: DataStoreManager
 
     // MARK: - Initializers
     public init(managedObjectContext: NSManagedObjectContext, dataStoreManager: DataStoreManager) {
@@ -30,9 +30,9 @@ class FavoritePhotoService: FavoritePhotoServiceProtocol {
     }
 
     @discardableResult
-    func addFavoritePhoto(parameters: [String: String],
-                          dataPicture: Data?,
-                          avatarImage: Data?) -> FavoritePhoto {
+    public func addFavoritePhoto(parameters: [String: String],
+                                 dataPicture: Data?,
+                                 avatarImage: Data?) -> FavoritePhoto {
         let favoritePhoto = FavoritePhoto(context: managedObjectContext)
 
         favoritePhoto.authorName = parameters["authorName"]
@@ -47,12 +47,12 @@ class FavoritePhotoService: FavoritePhotoServiceProtocol {
         return favoritePhoto
     }
 
-    func deleteFavoritePhoto(favoritePhoto: FavoritePhoto) {
+    public func deleteFavoritePhoto(favoritePhoto: FavoritePhoto) {
         managedObjectContext.delete(favoritePhoto)
         dataStoreManager.saveContext(managedObjectContext)
     }
 
-    func getFavoritePhotos() -> [FavoritePhoto]? {
+    public func getFavoritePhotos() -> [FavoritePhoto]? {
         let favoritePhotoFetch: NSFetchRequest<FavoritePhoto> = FavoritePhoto.fetchRequest()
         do {
             let rates = try managedObjectContext.fetch(favoritePhotoFetch)

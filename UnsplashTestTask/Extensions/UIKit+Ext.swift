@@ -24,7 +24,7 @@ extension UILabel {
 }
 
 extension UIButton {
-    func heartButton() {
+    public func heartButton() {
         let configuration = UIImage.SymbolConfiguration(pointSize: 20,
                                                         weight: .light,
                                                         scale: .large)
@@ -34,7 +34,7 @@ extension UIButton {
         self.setImage(image, for: .normal)
     }
 
-    func heartButtonFill() {
+    public func heartButtonFill() {
         let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .light, scale: .large)
         let image = UIImage(systemName: "suit.heart.fill",
                             withConfiguration: configuration)?.withTintColor(.red,
@@ -61,7 +61,7 @@ extension Formatter {
 }
 
 extension String {
-    func asCurrency() -> String? {
+    public func asCurrency() -> String? {
         if self.isEmpty {
             return Formatter.currency.string(from: NSNumber(value: 0))
         } else {
@@ -69,7 +69,7 @@ extension String {
         }
     }
 
-    func removeFormatAmount() -> Double {
+    public func removeFormatAmount() -> Double {
         let nsNumber = Formatter.currency.number(from: self)
         if let nsNumber = nsNumber {
             return Double(truncating: nsNumber)
@@ -77,7 +77,7 @@ extension String {
         return 0.0
     }
 
-    func asDate() -> String? {
+    public func asDate() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         if self.isEmpty {

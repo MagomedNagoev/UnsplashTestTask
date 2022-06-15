@@ -26,17 +26,17 @@ class Router: RouterProtocol {
 
     var tabBarController: UITabBarController?
     var builder: BuilderProtocol?
-    var mainNavigationController = UINavigationController()
-    var favoriteNavigationController = UINavigationController()
+    private var mainNavigationController = UINavigationController()
+    private var favoriteNavigationController = UINavigationController()
 
     init(tabBarController: UITabBarController, builder: BuilderProtocol) {
         self.tabBarController = tabBarController
         self.builder = builder
     }
 
-    func templateNavigationController(image: UIImage,
-                                      tabBarItemTitle: String,
-                                      rootViewController: UIViewController) -> UINavigationController {
+    private func templateNavigationController(image: UIImage,
+                                              tabBarItemTitle: String,
+                                              rootViewController: UIViewController) -> UINavigationController {
         let appearence = UINavigationBarAppearance()
         appearence.configureWithOpaqueBackground()
         appearence.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -52,7 +52,7 @@ class Router: RouterProtocol {
         return navigationController
     }
 
-    func configureViewControllers() {
+    public func configureViewControllers() {
         if let tabBarController = tabBarController {
 
             let configuration = UIImage.SymbolConfiguration(pointSize: 18, weight: .light, scale: .large)
@@ -80,9 +80,9 @@ class Router: RouterProtocol {
         }
     }
 
-    func showDetailedViewFromMain(randomResult: RandomResult,
-                                  image: UIImage,
-                                  avatarImage: UIImage?) {
+    public func showDetailedViewFromMain(randomResult: RandomResult,
+                                         image: UIImage,
+                                         avatarImage: UIImage?) {
         var parameters = [String: String]()
 
         parameters["idPhoto"] = randomResult.idPhoto
@@ -101,9 +101,9 @@ class Router: RouterProtocol {
 
     }
 
-    func showDetailedViewFromFavorite(favoritePhoto: FavoritePhoto,
-                                      image: UIImage,
-                                      avatarImage: UIImage?) {
+    public func showDetailedViewFromFavorite(favoritePhoto: FavoritePhoto,
+                                             image: UIImage,
+                                             avatarImage: UIImage?) {
         var parameters = [String: String]()
         parameters["idPhoto"] = favoritePhoto.idFavoritePhoto
         parameters["authorName"] = favoritePhoto.authorName
