@@ -22,9 +22,9 @@ protocol MainPresenterProtocol: class {
 
 class MainPresenter: MainPresenterProtocol {
     weak var view: MainViewProtocol?
-    var randomResults: [RandomResult]?
-    let networkService: NetworkServiceProtocol!
-    var router: RouterProtocol?
+    private var randomResults: [RandomResult]?
+    private let networkService: NetworkServiceProtocol!
+    private var router: RouterProtocol?
 
     required init(view: MainViewProtocol,
                   networkService: NetworkServiceProtocol,
@@ -35,7 +35,7 @@ class MainPresenter: MainPresenterProtocol {
         fetchData(searchTerm: "")
     }
 
-    func fetchData(searchTerm: String) {
+    public func fetchData(searchTerm: String) {
         networkService.getData(searchTerm: searchTerm) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -50,16 +50,16 @@ class MainPresenter: MainPresenterProtocol {
         }
     }
 
-    func getPictures() -> [RandomResult] {
+    public func getPictures() -> [RandomResult] {
         guard let results = randomResults  else {
             return [RandomResult]()
         }
         return results
     }
 
-    func tapOnthePhoto(randomResult: RandomResult,
-                       image: UIImage,
-                       avatarImage: UIImage?) {
+    public func tapOnthePhoto(randomResult: RandomResult,
+                              image: UIImage,
+                              avatarImage: UIImage?) {
         router?.showDetailedViewFromMain(randomResult: randomResult, image: image, avatarImage: avatarImage)
     }
 }

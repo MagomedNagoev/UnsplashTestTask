@@ -9,9 +9,11 @@ import UIKit
 
 class DetailedViewController: UIViewController {
 
-    var presenter: DetailedPresenterProtocol!
-    let stackView = UIStackView()
-    var photoImageView: UIImageView = {
+    public var presenter: DetailedPresenterProtocol!
+
+    private let stackView = UIStackView()
+
+    private var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .white
@@ -20,7 +22,7 @@ class DetailedViewController: UIViewController {
         return imageView
     }()
 
-    var favoriteButton: UIButton = {
+    private var favoriteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "suit.heart"), for: .normal)
@@ -28,7 +30,7 @@ class DetailedViewController: UIViewController {
         return button
     }()
 
-    var authorNameLabel: UILabel = {
+    private var authorNameLabel: UILabel = {
         let label = UILabel(text: "👤 N/A",
                             font: .systemFont(ofSize: 15),
                             textAlignment: .left)
@@ -36,7 +38,7 @@ class DetailedViewController: UIViewController {
         return label
     }()
 
-    var dateCreateLabel: UILabel = {
+    private var dateCreateLabel: UILabel = {
         let label = UILabel(text: "📅 N/A",
                             font: .systemFont(ofSize: 15),
                             textAlignment: .left)
@@ -44,7 +46,7 @@ class DetailedViewController: UIViewController {
         return label
     }()
 
-    var locationLabel: UILabel = {
+    private var locationLabel: UILabel = {
         let label = UILabel(text: "📍 N/A",
                             font: .systemFont(ofSize: 15),
                             textAlignment: .left)
@@ -52,7 +54,7 @@ class DetailedViewController: UIViewController {
         return label
     }()
 
-    var downloadsLabel: UILabel = {
+    private var downloadsLabel: UILabel = {
         let label = UILabel(text: "📥 N/A",
                             font: .systemFont(ofSize: 15),
                             textAlignment: .left)
@@ -102,7 +104,7 @@ class DetailedViewController: UIViewController {
             dateCreateLabel.text = "📅  \(string)"
         }
 
-        if let string = presenter.location {
+        if let string = presenter.locationName {
             stackView.addArrangedSubview(locationLabel)
             locationLabel.text = "📍  \(string)"
         }
@@ -113,7 +115,7 @@ class DetailedViewController: UIViewController {
         }
     }
 
-    func setButton() {
+    private func setButton() {
         if presenter.photoIsFavorite() {
             favoriteButton.heartButtonFill()
         } else {
@@ -121,7 +123,7 @@ class DetailedViewController: UIViewController {
         }
     }
 
-    func callAlert(message: String, complition: @escaping () -> Void) {
+    private func callAlert(message: String, complition: @escaping () -> Void) {
         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
         let add = UIAlertAction(title: "Yes", style: .default) {_ in
             complition()
@@ -133,7 +135,7 @@ class DetailedViewController: UIViewController {
         present(alertController, animated: true)
     }
 
-    func UIConfig() {
+    private func UIConfig() {
 
         let saveAreaView = view.safeAreaLayoutGuide
 

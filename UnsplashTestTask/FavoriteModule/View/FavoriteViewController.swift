@@ -9,7 +9,7 @@ import UIKit
 
 class FavoriteViewController: UICollectionViewController {
 
-    var presenter: FavoritePresenter?
+    public var presenter: FavoritePresenterProtocol!
 
     private let enterSearchTermLabel: UILabel = {
         let label = UILabel()
@@ -66,20 +66,29 @@ class FavoriteViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.reuseId,
-                                                            for: indexPath) as? FavoriteCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: FavoriteCollectionViewCell.reuseId,
+                for: indexPath) as? FavoriteCollectionViewCell
         else { return FavoriteCollectionViewCell() }
 
         let unsplashPhoto = presenter?.getPictures()?[indexPath.item]
 
-        cell.myImageView.image = UIImage(data: unsplashPhoto!.photoData!)
+        var photoImage = UIImage()
+        var avatarImage = UIImage()
+
         if let data = unsplashPhoto?.avatarImage,
            let image = UIImage(data: data) {
-          cell.avatarImageView.image = image
+            avatarImage = image
         }
 
-        cell.nameLabel.text = unsplashPhoto?.authorName
+        if let data = unsplashPhoto?.photoData,
+           let image = UIImage(data: data) {
+            photoImage = image
+        }
 
+        cell.setDataCell(authorName: unsplashPhoto?.authorName,
+                         photoImage: photoImage,
+                         avatarImage: avatarImage)
         return cell
     }
 

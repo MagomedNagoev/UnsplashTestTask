@@ -10,7 +10,7 @@ import SDWebImage
 
 class MainViewController: UICollectionViewController {
 
-    var presenter: MainPresenterProtocol!
+    public var presenter: MainPresenterProtocol!
     private var timer: Timer?
 
     private let spinner: UIActivityIndicatorView = {

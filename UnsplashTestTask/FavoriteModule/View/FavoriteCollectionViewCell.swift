@@ -11,7 +11,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
 
     static let reuseId = "LikesCollectionViewCell"
 
-    var myImageView: UIImageView = {
+    private var photoImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -25,7 +25,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         setupAvatarView()
     }
 
-    var nameLabel: UILabel = {
+    private var authorNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -33,7 +33,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    var whiteView: UIView = {
+    private var whiteView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.alpha = 0.7
@@ -42,7 +42,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         return view
     }()
 
-    var avatarImageView: UIImageView = {
+    private var avatarImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -51,15 +51,15 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
 
-    func setupImageView() {
-        addSubview(myImageView)
-        myImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        myImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        myImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        myImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+    private func setupImageView() {
+        addSubview(photoImageView)
+        photoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        photoImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
 
-    func setupAvatarView() {
+    private func setupAvatarView() {
         addSubview(whiteView)
 
         NSLayoutConstraint.activate([
@@ -77,12 +77,21 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
             avatarImageView.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 2.5)
         ])
 
-        addSubview(nameLabel)
+        addSubview(authorNameLabel)
         NSLayoutConstraint.activate([
-            nameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 8),
-            nameLabel.rightAnchor.constraint(equalTo: whiteView.rightAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
+            authorNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 8),
+            authorNameLabel.rightAnchor.constraint(equalTo: whiteView.rightAnchor),
+            authorNameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
         ])
+    }
+
+    public func setDataCell(authorName: String?,
+                            photoImage: UIImage?,
+                            avatarImage: UIImage?) {
+        authorNameLabel.text = authorName
+        photoImageView.image = photoImage
+        avatarImageView.image = avatarImage
+
     }
 
     required init?(coder: NSCoder) {

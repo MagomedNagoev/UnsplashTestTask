@@ -21,7 +21,7 @@ class ModelBuilder: BuilderProtocol {
 
     let dataStoreManager = DataStoreManager()
 
-    func createMainModule(router: RouterProtocol) -> UIViewController {
+    public func createMainModule(router: RouterProtocol) -> UIViewController {
         let view = MainViewController(collectionViewLayout: WaterfallLayout())
         let networkService = NetworkService()
         let presenter = MainPresenter(view: view,
@@ -31,7 +31,7 @@ class ModelBuilder: BuilderProtocol {
         return view
     }
 
-    func createFavoriteModule(router: RouterProtocol) -> UIViewController {
+    public func createFavoriteModule(router: RouterProtocol) -> UIViewController {
         let view = FavoriteViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let favoritePhotoService = FavoritePhotoService(managedObjectContext:
                                                             dataStoreManager.mainContext,
@@ -42,10 +42,10 @@ class ModelBuilder: BuilderProtocol {
         return view
     }
 
-    func createDetailedModule(router: RouterProtocol,
-                              parameters: [String: String],
-                              dataPicture: UIImage?,
-                              avatarImage: UIImage?) -> UIViewController {
+    public func createDetailedModule(router: RouterProtocol,
+                                     parameters: [String: String],
+                                     dataPicture: UIImage?,
+                                     avatarImage: UIImage?) -> UIViewController {
         let view = DetailedViewController()
         let favoritePhotoService = FavoritePhotoService(managedObjectContext:
                                                             dataStoreManager.mainContext,
