@@ -7,4 +7,5 @@ target 'UnsplashTestTask' do
 
   # Pods for UnsplashTestTask
 pod 'SDWebImage', '~> 5.0'
+pod 'SwiftLint'
 end

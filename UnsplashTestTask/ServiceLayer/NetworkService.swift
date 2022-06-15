@@ -12,7 +12,7 @@ protocol NetworkServiceProtocol: class {
 }
 
 class NetworkService: NetworkServiceProtocol {
-    
+
     func getData(searchTerm: String, completion: @escaping (Result<[RandomResult]?, Error>) -> Void) {
         let parameters = self.prepareParaments(searchTerm: searchTerm)
         let url = self.url(parameters: parameters)
@@ -22,11 +22,11 @@ class NetworkService: NetworkServiceProtocol {
 //        if let cachedRates = getCachedData(from: request) {
 //            completion(.success(cachedRates))
 //        }
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, let _ = response else {
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data else {
                 return
             }
-            
+
             do {
                 let obj = try JSONDecoder().decode([RandomResult].self, from: data)
 //                self.saveDataToCache(with: data, and: response)
@@ -36,20 +36,20 @@ class NetworkService: NetworkServiceProtocol {
             }
         }.resume()
     }
-    
+
     private func prepareHeader() -> [String: String]? {
         var headers = [String: String]()
         headers["Authorization"] = "Client-ID IMTWVQzZjzRO0sRxUD6gtMf03l72z-DLrMBguhkJORM"
         return headers
     }
-    
+
     private func prepareParaments(searchTerm: String?) -> [String: String] {
         var parameters = [String: String]()
         parameters["query"] = searchTerm
         parameters["count"] = String(30)
         return parameters
     }
-    
+
     private func url(parameters: [String: String]) -> URL {
         var components = URLComponents()
         components.scheme = "https"
@@ -58,7 +58,7 @@ class NetworkService: NetworkServiceProtocol {
         components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1)}
         return components.url!
     }
-    
+
 //    private func getCachedData(from urlRequest: URLRequest) -> [RandomResult]? {
 //        if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest) {
 //            do {
@@ -80,4 +80,3 @@ class NetworkService: NetworkServiceProtocol {
 //        print("закэшилось")
 //        }
 }
-

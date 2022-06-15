@@ -8,35 +8,23 @@
 import Foundation
 import CoreData
 
-
 open class DataStoreManager {
     public static let modelName = "UnsplashTestTask"
     public static let model: NSManagedObjectModel = {
         let modelURL = Bundle.main.url(forResource: modelName, withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
-    
+
     public init() {
-        
     }
 
     public lazy var mainContext: NSManagedObjectContext = {
         return persistentContainer.viewContext
     }()
-    
-    lazy var fetchedResultsController:NSFetchedResultsController<FavoritePhoto> = {
-        let fetchRequest: NSFetchRequest<FavoritePhoto> = FavoritePhoto.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        let resultController = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                                managedObjectContext: mainContext,
-                                                                sectionNameKeyPath: nil,
-                                                                cacheName: nil)
-        return resultController
-    }()
 
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: DataStoreManager.modelName, managedObjectModel: DataStoreManager.model)
+        let container = NSPersistentContainer(name: DataStoreManager.modelName,
+                                              managedObjectModel: DataStoreManager.model)
         container.loadPersistentStores { _, error in
           if let error = error as NSError? {
             fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -44,8 +32,7 @@ open class DataStoreManager {
         }
         return container
       }()
-    
-    
+
     // MARK: - Core Data Saving support
     public func newDerivedContext() -> NSManagedObjectContext {
         let context = persistentContainer.newBackgroundContext()
@@ -79,4 +66,3 @@ open class DataStoreManager {
       }
     }
 }
-

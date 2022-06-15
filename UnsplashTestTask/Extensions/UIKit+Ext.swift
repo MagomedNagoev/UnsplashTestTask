@@ -14,7 +14,7 @@ extension UILabel {
         self.font = font
         self.textColor = textColor
     }
-    
+
     convenience init(text: String, font: UIFont, textAlignment: NSTextAlignment) {
         self.init(frame: .zero)
         self.text = text
@@ -25,14 +25,20 @@ extension UILabel {
 
 extension UIButton {
     func heartButton() {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .light, scale: .large)
-        let image = UIImage(systemName: "suit.heart", withConfiguration: configuration)?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20,
+                                                        weight: .light,
+                                                        scale: .large)
+        let image = UIImage(systemName: "suit.heart",
+                            withConfiguration: configuration)?.withTintColor(.red,
+                                                                             renderingMode: .alwaysOriginal)
         self.setImage(image, for: .normal)
     }
-    
+
     func heartButtonFill() {
         let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .light, scale: .large)
-        let image = UIImage(systemName: "suit.heart.fill", withConfiguration: configuration)?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "suit.heart.fill",
+                            withConfiguration: configuration)?.withTintColor(.red,
+                                                                             renderingMode: .alwaysOriginal)
         self.setImage(image, for: .normal)
     }
 }
@@ -46,7 +52,7 @@ extension Formatter {
         formatter.currencyGroupingSeparator = ","
         return formatter
     }()
-    
+
     static let date: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
@@ -62,7 +68,7 @@ extension String {
             return Formatter.currency.string(from: NSNumber(value: (Int(self) ?? 0)))
         }
     }
-    
+
     func removeFormatAmount() -> Double {
         let nsNumber = Formatter.currency.number(from: self)
         if let nsNumber = nsNumber {
@@ -70,13 +76,13 @@ extension String {
         }
         return 0.0
     }
-    
+
     func asDate() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         if self.isEmpty {
             return Formatter.date.string(from: Date())
-            
+
         } else {
             return Formatter.date.string(from: dateFormatter.date(from: self) ?? Date())
         }

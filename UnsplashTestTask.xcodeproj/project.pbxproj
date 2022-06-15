@@ -232,6 +232,7 @@
 			buildConfigurationList = 1B4D9452284E06E20070D8BB /* Build configuration list for PBXNativeTarget "UnsplashTestTask" */;
 			buildPhases = (
 				6A4493CA4A3C8B07A29A6EC9 /* [CP] Check Pods Manifest.lock */,
+				1B0430CE2859853E000A6045 /* ShellScript */,
 				1B4D9437284E06DE0070D8BB /* Sources */,
 				1B4D9438284E06DE0070D8BB /* Frameworks */,
 				1B4D9439284E06DE0070D8BB /* Resources */,
@@ -290,6 +291,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1B0430CE2859853E000A6045 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		6A4493CA4A3C8B07A29A6EC9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

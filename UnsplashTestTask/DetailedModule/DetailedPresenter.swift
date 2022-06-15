@@ -20,22 +20,22 @@ protocol DetailedPresenterProtocol: class {
 }
 
 class DetailedPresenter: DetailedPresenterProtocol {
-    
+
     weak var view: DetailedViewController?
     var router: RouterProtocol?
     var favoritePhotoService: FavoritePhotoServiceProtocol?
-    let id: String
+    let idPhoto: String
     let authorName: String?
     let dataPicture: UIImage?
     let avatarImage: UIImage?
     let dateCreate: String?
     let location: String?
     let downloads: String?
-    
+
     required init(view: DetailedViewController,
                   router: RouterProtocol,
                   favoritePhotoService: FavoritePhotoServiceProtocol,
-                  id: String,
+                  idPhoto: String,
                   authorName: String?,
                   dataPicture: UIImage?,
                   dateCreate: String?,
@@ -44,7 +44,7 @@ class DetailedPresenter: DetailedPresenterProtocol {
                   downloads: String?) {
         self.view = view
         self.router = router
-        self.id = id
+        self.idPhoto = idPhoto
         self.authorName = authorName
         self.dataPicture = dataPicture
         self.dateCreate = dateCreate
@@ -56,22 +56,28 @@ class DetailedPresenter: DetailedPresenterProtocol {
 
     func photoIsFavorite() -> Bool {
         if let favoritePhotos = favoritePhotoService?.getFavoritePhotos() {
-            return favoritePhotos.map { $0.id == id }.contains(true)
+            return favoritePhotos.map { $0.idFavoritePhoto == idPhoto }.contains(true)
         }
         return false
     }
-    
+
     func addToFavoritePhoto() {
         let photoData = dataPicture?.pngData()
         let avatarData = avatarImage?.pngData()
-        favoritePhotoService?.addFavoritePhoto(id: id, authorName: authorName, dataPicture: photoData, avatarImage: avatarData, dateCreate: dateCreate, location: location, downloads: downloads)
+        favoritePhotoService?.addFavoritePhoto(idFavoritePhoto: idPhoto,
+                                               authorName: authorName,
+                                               dataPicture: photoData,
+                                               avatarImage: avatarData,
+                                               dateCreate: dateCreate,
+                                               location: location,
+                                               downloads: downloads)
 
     }
-    
+
     func deleteFavoritePhoto() {
         if let favoritePhotos = favoritePhotoService?.getFavoritePhotos() {
             favoritePhotos.forEach { (photo) in
-                if photo.id == id {
+                if photo.idFavoritePhoto == idPhoto {
                     favoritePhotoService?.deleteFavoritePhoto(favoritePhoto: photo)
                 }
             }

@@ -8,9 +8,9 @@
 import UIKit
 
 class FavoriteCollectionViewCell: UICollectionViewCell {
-    
+
     static let reuseId = "LikesCollectionViewCell"
-    
+
     var myImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -18,13 +18,13 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupImageView()
         setupAvatarView()
     }
-    
+
     var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .left
         return label
     }()
-    
+
     var whiteView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -41,7 +41,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     var avatarImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -50,7 +50,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 45/2
         return imageView
     }()
-    
+
     func setupImageView() {
         addSubview(myImageView)
         myImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
@@ -58,17 +58,17 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         myImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         myImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
-    
+
     func setupAvatarView() {
         addSubview(whiteView)
-        
+
         NSLayoutConstraint.activate([
             whiteView.leftAnchor.constraint(equalTo: leftAnchor),
             whiteView.rightAnchor.constraint(equalTo: rightAnchor),
             whiteView.bottomAnchor.constraint(equalTo: bottomAnchor),
             whiteView.topAnchor.constraint(equalTo: bottomAnchor, constant: -50)
         ])
-        
+
         addSubview(avatarImageView)
         NSLayoutConstraint.activate([
             avatarImageView.leftAnchor.constraint(equalTo: whiteView.leftAnchor, constant: 2.5),
@@ -76,7 +76,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
             avatarImageView.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor, constant: -2.5),
             avatarImageView.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 2.5)
         ])
-        
+
         addSubview(nameLabel)
         NSLayoutConstraint.activate([
             nameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 8),
@@ -84,7 +84,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
             nameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
         ])
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

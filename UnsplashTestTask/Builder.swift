@@ -11,7 +11,7 @@ protocol BuilderProtocol: class {
     func createMainModule(router: RouterProtocol) -> UIViewController
     func createFavoriteModule(router: RouterProtocol) -> UIViewController
     func createDetailedModule(router: RouterProtocol,
-                              id: String,
+                              idPhoto: String,
                               authorName: String?,
                               dataPicture: UIImage?,
                               avatarImage: UIImage?,
@@ -22,10 +22,9 @@ protocol BuilderProtocol: class {
 }
 
 class ModelBuilder: BuilderProtocol {
-    
-    
+
     let dataStoreManager = DataStoreManager()
-    
+
     func createMainModule(router: RouterProtocol) -> UIViewController {
         let view = MainViewController(collectionViewLayout: WaterfallLayout())
         let networkService = NetworkService()
@@ -35,17 +34,20 @@ class ModelBuilder: BuilderProtocol {
         view.presenter = presenter
         return view
     }
-    
+
     func createFavoriteModule(router: RouterProtocol) -> UIViewController {
         let view = FavoriteViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let favoritePhotoService = FavoritePhotoService(managedObjectContext: dataStoreManager.mainContext, dataStoreManager: dataStoreManager)
-        let presenter = FavoritePresenter(view: view, storeManager: dataStoreManager, favoritePhotoService: favoritePhotoService, router: router)
+        let favoritePhotoService = FavoritePhotoService(managedObjectContext:
+                                                            dataStoreManager.mainContext,
+                                                        dataStoreManager: dataStoreManager)
+        let presenter = FavoritePresenter(view: view, storeManager: dataStoreManager,
+                                          favoritePhotoService: favoritePhotoService, router: router)
         view.presenter = presenter
         return view
     }
-    
+
     func createDetailedModule(router: RouterProtocol,
-                              id: String,
+                              idPhoto: String,
                               authorName: String?,
                               dataPicture: UIImage?,
                               avatarImage: UIImage?,
@@ -53,22 +55,21 @@ class ModelBuilder: BuilderProtocol {
                               location: String?,
                               downloads: String?) -> UIViewController {
         let view = DetailedViewController()
-        let favoritePhotoService = FavoritePhotoService(managedObjectContext: dataStoreManager.mainContext, dataStoreManager: dataStoreManager)
+        let favoritePhotoService = FavoritePhotoService(managedObjectContext:
+                                                            dataStoreManager.mainContext,
+                                                        dataStoreManager: dataStoreManager)
         let presenter = DetailedPresenter(view: view,
                                           router: router,
                                           favoritePhotoService: favoritePhotoService,
-                                          id: id,
+                                          idPhoto: idPhoto,
                                           authorName: authorName,
                                           dataPicture: dataPicture,
                                           dateCreate: dateCreate,
                                           avatarImage: avatarImage,
                                           location: location,
                                           downloads: downloads)
-        
+
         view.presenter = presenter
         return view
     }
-    
-    
 }
-

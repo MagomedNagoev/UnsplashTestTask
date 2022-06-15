@@ -9,7 +9,6 @@ import UIKit
 
 protocol FavoritePresenterProtocol: class {
     func getPictures() -> [FavoritePhoto]?
-    func resultController() -> Any
 }
 
 class FavoritePresenter: FavoritePresenterProtocol {
@@ -17,7 +16,7 @@ class FavoritePresenter: FavoritePresenterProtocol {
     var router: RouterProtocol?
     var storeManager: DataStoreManager!
     var favoritePhotoService: FavoritePhotoServiceProtocol!
-    
+
     required init(view: FavoriteViewController,
                   storeManager: DataStoreManager,
                   favoritePhotoService: FavoritePhotoServiceProtocol,
@@ -27,15 +26,11 @@ class FavoritePresenter: FavoritePresenterProtocol {
         self.router = router
         self.favoritePhotoService = favoritePhotoService
     }
-    
-    func resultController() -> Any {
-        return storeManager.fetchedResultsController
-    }
-    
+
     func getPictures() -> [FavoritePhoto]? {
         return favoritePhotoService.getFavoritePhotos()
     }
-    
+
     func tapOntheFavoritePhoto(favoritePhoto: FavoritePhoto) {
         if let imageData = favoritePhoto.photoData,
            let image = UIImage(data: imageData) {
@@ -46,4 +41,3 @@ class FavoritePresenter: FavoritePresenterProtocol {
         }
     }
 }
-

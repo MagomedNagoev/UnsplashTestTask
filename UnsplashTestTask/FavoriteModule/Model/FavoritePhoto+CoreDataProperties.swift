@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension FavoritePhoto {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoritePhoto> {
@@ -20,7 +19,7 @@ extension FavoritePhoto {
     @NSManaged public var createdDate: String?
     @NSManaged public var date: Date?
     @NSManaged public var downloads: String?
-    @NSManaged public var id: String?
+    @NSManaged public var idFavoritePhoto: String?
     @NSManaged public var locationName: String?
     @NSManaged public var photoData: Data?
     @NSManaged public var avatarImage: Data?

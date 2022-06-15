@@ -1,9 +1,8 @@
-
 import Foundation
 
 // MARK: - RandomResult
 struct RandomResult: Codable {
-    let id: String?
+    let idPhoto: String?
     let createdAt: String?
     let updatedAt: String?
     let promotedAt: String?
@@ -28,7 +27,7 @@ struct RandomResult: Codable {
     let downloads: Int?
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case idPhoto = "id"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case promotedAt = "promoted_at"
@@ -97,25 +96,12 @@ struct Location: Codable {
     let city: String?
     let country: String?
     let position: Position?
-
-    enum CodingKeys: String, CodingKey {
-        case title = "title"
-        case name = "name"
-        case city = "city"
-        case country = "country"
-        case position = "position"
-    }
 }
 
 // MARK: - Position
 struct Position: Codable {
     let latitude: Double?
     let longitude: Double?
-
-    enum CodingKeys: String, CodingKey {
-        case latitude = "latitude"
-        case longitude = "longitude"
-    }
 }
 
 // MARK: - TopicSubmissions
@@ -143,10 +129,6 @@ struct Architecture: Codable {
 // MARK: - ArtsCulture
 struct ArtsCulture: Codable {
     let status: String?
-
-    enum CodingKeys: String, CodingKey {
-        case status = "status"
-    }
 }
 
 // MARK: - Urls
@@ -170,7 +152,7 @@ struct Urls: Codable {
 
 // MARK: - User
 struct User: Codable {
-    let id: String?
+    let idUser: String?
     let updatedAt: String?
     let username: String?
     let name: String?
@@ -191,7 +173,7 @@ struct User: Codable {
     let social: Social?
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case idUser = "id"
         case updatedAt = "updated_at"
         case username = "username"
         case name = "name"
@@ -239,12 +221,6 @@ struct ProfileImage: Codable {
     let small: String?
     let medium: String?
     let large: String?
-
-    enum CodingKeys: String, CodingKey {
-        case small = "small"
-        case medium = "medium"
-        case large = "large"
-    }
 }
 
 // MARK: - Social

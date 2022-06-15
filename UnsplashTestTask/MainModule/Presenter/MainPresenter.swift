@@ -15,7 +15,7 @@ protocol MainViewProtocol: class {
 protocol MainPresenterProtocol: class {
     func getPictures() -> [RandomResult]
     func fetchData(searchTerm: String)
-    func tapOnthePhoto(randomResult:RandomResult,
+    func tapOnthePhoto(randomResult: RandomResult,
                        image: UIImage,
                        avatarImage: UIImage?)
 }
@@ -25,7 +25,7 @@ class MainPresenter: MainPresenterProtocol {
     var randomResults: [RandomResult]?
     let networkService: NetworkServiceProtocol!
     var router: RouterProtocol?
-    
+
     required init(view: MainViewProtocol,
                   networkService: NetworkServiceProtocol,
                   router: RouterProtocol) {
@@ -34,7 +34,7 @@ class MainPresenter: MainPresenterProtocol {
         self.router = router
         fetchData(searchTerm: "")
     }
-    
+
     func fetchData(searchTerm: String) {
         networkService.getData(searchTerm: searchTerm) { [weak self] result in
             guard let self = self else { return }
@@ -56,8 +56,10 @@ class MainPresenter: MainPresenterProtocol {
         }
         return results
     }
-    
-    func tapOnthePhoto(randomResult:RandomResult, image: UIImage, avatarImage: UIImage?) {
+
+    func tapOnthePhoto(randomResult: RandomResult,
+                       image: UIImage,
+                       avatarImage: UIImage?) {
         router?.showDetailedViewFromMain(randomResult: randomResult, image: image, avatarImage: avatarImage)
     }
 }
