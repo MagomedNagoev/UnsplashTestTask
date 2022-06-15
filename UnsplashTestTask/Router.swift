@@ -83,21 +83,19 @@ class Router: RouterProtocol {
     func showDetailedViewFromMain(randomResult: RandomResult,
                                   image: UIImage,
                                   avatarImage: UIImage?) {
-              let authorName = randomResult.user?.name
-        let dateCreate = randomResult.createdAt?.asDate()
-              let location = randomResult.location?.name
-        let downloads = Formatter.currency.string(from:
+        var parameters = [String: String]()
+
+        parameters["idPhoto"] = randomResult.idPhoto
+        parameters["authorName"] = randomResult.user?.name
+        parameters["dateCreate"] = randomResult.createdAt?.asDate()
+        parameters["location"] = randomResult.location?.name
+        parameters["downloads"] = Formatter.currency.string(from:
                                                     NSNumber(value: randomResult.downloads ?? 0))
-            guard let idPhoto = randomResult.idPhoto,
-                  let detailedViewController =
+            guard let detailedViewController =
                     builder?.createDetailedModule(router: self,
-                                                  idPhoto: idPhoto,
-                                                  authorName: authorName,
+                                                  parameters: parameters,
                                                   dataPicture: image,
-                                                  avatarImage: avatarImage,
-                                                  dateCreate: dateCreate,
-                                                  location: location,
-                                                  downloads: downloads)
+                                                  avatarImage: avatarImage)
             else { return }
         mainNavigationController.pushViewController(detailedViewController, animated: true)
 
@@ -106,20 +104,18 @@ class Router: RouterProtocol {
     func showDetailedViewFromFavorite(favoritePhoto: FavoritePhoto,
                                       image: UIImage,
                                       avatarImage: UIImage?) {
-              let authorName = favoritePhoto.authorName
-              let dateCreate = favoritePhoto.createdDate
-              let location = favoritePhoto.locationName
-              let downloads = favoritePhoto.downloads
-            guard let idFavoritePhoto = favoritePhoto.idFavoritePhoto,
-                  let detailedViewController =
+        var parameters = [String: String]()
+        parameters["idPhoto"] = favoritePhoto.idFavoritePhoto
+        parameters["authorName"] = favoritePhoto.authorName
+        parameters["dateCreate"] = favoritePhoto.createdDate
+        parameters["location"] = favoritePhoto.locationName
+        parameters["downloads"] = favoritePhoto.downloads
+
+            guard let detailedViewController =
                     builder?.createDetailedModule(router: self,
-                                                  idPhoto: idFavoritePhoto,
-                                                  authorName: authorName,
+                                                  parameters: parameters,
                                                   dataPicture: image,
-                                                  avatarImage: avatarImage,
-                                                  dateCreate: dateCreate,
-                                                  location: location,
-                                                  downloads: downloads)
+                                                  avatarImage: avatarImage)
             else { return }
         favoriteNavigationController.pushViewController(detailedViewController, animated: true)
     }

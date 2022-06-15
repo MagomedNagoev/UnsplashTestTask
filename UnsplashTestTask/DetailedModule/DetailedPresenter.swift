@@ -64,13 +64,16 @@ class DetailedPresenter: DetailedPresenterProtocol {
     func addToFavoritePhoto() {
         let photoData = dataPicture?.pngData()
         let avatarData = avatarImage?.pngData()
-        favoritePhotoService?.addFavoritePhoto(idFavoritePhoto: idPhoto,
-                                               authorName: authorName,
+            var parameters = [String: String]()
+            parameters["idPhoto"] = idPhoto
+            parameters["authorName"] = authorName
+            parameters["dateCreate"] = dateCreate
+            parameters["location"] = location
+            parameters["downloads"] = downloads
+
+        favoritePhotoService?.addFavoritePhoto(parameters: parameters,
                                                dataPicture: photoData,
-                                               avatarImage: avatarData,
-                                               dateCreate: dateCreate,
-                                               location: location,
-                                               downloads: downloads)
+                                               avatarImage: avatarData)
 
     }
 

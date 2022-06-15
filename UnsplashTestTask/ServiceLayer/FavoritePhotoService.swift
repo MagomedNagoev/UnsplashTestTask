@@ -10,13 +10,9 @@ import CoreData
 
 protocol FavoritePhotoServiceProtocol {
     @discardableResult
-    func addFavoritePhoto (idFavoritePhoto: String,
-                           authorName: String?,
+    func addFavoritePhoto (parameters: [String: String],
                            dataPicture: Data?,
-                           avatarImage: Data?,
-                           dateCreate: String?,
-                           location: String?,
-                           downloads: String?) -> FavoritePhoto
+                           avatarImage: Data?) -> FavoritePhoto
     func deleteFavoritePhoto(favoritePhoto: FavoritePhoto)
     func getFavoritePhotos() -> [FavoritePhoto]?
 }
@@ -34,21 +30,17 @@ class FavoritePhotoService: FavoritePhotoServiceProtocol {
     }
 
     @discardableResult
-    func addFavoritePhoto(idFavoritePhoto: String,
-                          authorName: String?,
+    func addFavoritePhoto(parameters: [String: String],
                           dataPicture: Data?,
-                          avatarImage: Data?,
-                          dateCreate: String?,
-                          location: String?,
-                          downloads: String?) -> FavoritePhoto {
+                          avatarImage: Data?) -> FavoritePhoto {
         let favoritePhoto = FavoritePhoto(context: managedObjectContext)
 
-        favoritePhoto.authorName = authorName
-        favoritePhoto.createdDate = dateCreate
+        favoritePhoto.authorName = parameters["authorName"]
+        favoritePhoto.createdDate = parameters["dateCreate"]
         favoritePhoto.date = Date()
-        favoritePhoto.downloads = downloads
-        favoritePhoto.idFavoritePhoto = idFavoritePhoto
-        favoritePhoto.locationName = location
+        favoritePhoto.downloads = parameters["downloads"]
+        favoritePhoto.idFavoritePhoto = parameters["idPhoto"]
+        favoritePhoto.locationName = parameters["location"]
         favoritePhoto.photoData = dataPicture
         favoritePhoto.avatarImage = avatarImage
         dataStoreManager.saveContext(managedObjectContext)

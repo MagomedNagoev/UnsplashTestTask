@@ -11,13 +11,9 @@ protocol BuilderProtocol: class {
     func createMainModule(router: RouterProtocol) -> UIViewController
     func createFavoriteModule(router: RouterProtocol) -> UIViewController
     func createDetailedModule(router: RouterProtocol,
-                              idPhoto: String,
-                              authorName: String?,
+                              parameters: [String: String],
                               dataPicture: UIImage?,
-                              avatarImage: UIImage?,
-                              dateCreate: String?,
-                              location: String?,
-                              downloads: String?) -> UIViewController
+                              avatarImage: UIImage?) -> UIViewController
 
 }
 
@@ -47,13 +43,9 @@ class ModelBuilder: BuilderProtocol {
     }
 
     func createDetailedModule(router: RouterProtocol,
-                              idPhoto: String,
-                              authorName: String?,
+                              parameters: [String: String],
                               dataPicture: UIImage?,
-                              avatarImage: UIImage?,
-                              dateCreate: String?,
-                              location: String?,
-                              downloads: String?) -> UIViewController {
+                              avatarImage: UIImage?) -> UIViewController {
         let view = DetailedViewController()
         let favoritePhotoService = FavoritePhotoService(managedObjectContext:
                                                             dataStoreManager.mainContext,
@@ -61,13 +53,13 @@ class ModelBuilder: BuilderProtocol {
         let presenter = DetailedPresenter(view: view,
                                           router: router,
                                           favoritePhotoService: favoritePhotoService,
-                                          idPhoto: idPhoto,
-                                          authorName: authorName,
+                                          idPhoto: parameters["idPhoto"] ?? "",
+                                          authorName: parameters["authorName"],
                                           dataPicture: dataPicture,
-                                          dateCreate: dateCreate,
+                                          dateCreate: parameters["dateCreate"],
                                           avatarImage: avatarImage,
-                                          location: location,
-                                          downloads: downloads)
+                                          location: parameters["location"],
+                                          downloads: parameters["downloads"])
 
         view.presenter = presenter
         return view
