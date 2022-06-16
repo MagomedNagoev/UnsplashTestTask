@@ -13,7 +13,7 @@ class MainViewController: UICollectionViewController {
     public var presenter: MainPresenterProtocol!
     private var timer: Timer?
 
-    private let spinner: UIActivityIndicatorView = {
+    private let spinnerView: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
@@ -44,9 +44,9 @@ class MainViewController: UICollectionViewController {
     }
 
     private func setupSpinner() {
-        view.addSubview(spinner)
-        spinner.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
-        spinner.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
+        view.addSubview(spinnerView)
+        spinnerView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+        spinnerView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
     }
 
     private func setupNavigationBar() {
@@ -117,11 +117,11 @@ class MainViewController: UICollectionViewController {
 extension MainViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.spinner.startAnimating()
+        self.spinnerView.startAnimating()
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: {[presenter, spinner] (_) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: {[presenter, spinnerView] (_) in
             presenter?.fetchData(searchTerm: searchText)
-            spinner.stopAnimating()
+            spinnerView.stopAnimating()
         })
     }
 
