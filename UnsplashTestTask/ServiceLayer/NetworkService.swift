@@ -16,7 +16,6 @@ class NetworkService: NetworkServiceProtocol {
     func getData(searchTerm: String, completion: @escaping (Result<[RandomResult]?, Error>) -> Void) {
         let parameters = self.prepareParaments(searchTerm: searchTerm)
         let url = self.url(parameters: parameters)
-        print(url)
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = prepareHeader()
         request.httpMethod = "get"
