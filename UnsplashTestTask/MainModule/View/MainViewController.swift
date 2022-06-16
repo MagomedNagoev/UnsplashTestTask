@@ -124,6 +124,10 @@ extension MainViewController: UISearchBarDelegate {
             spinner.stopAnimating()
         })
     }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.fetchData(searchTerm: "")
+    }
 }
 
 // MARK: - WaterfallLayoutDelegate
